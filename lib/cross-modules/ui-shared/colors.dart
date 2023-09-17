@@ -1,4 +1,4 @@
-library com.rick_and_morty.ui_shared;
+library com.rick_and_morty.ui_shared.colors;
 
 import 'package:flutter/material.dart';
 
