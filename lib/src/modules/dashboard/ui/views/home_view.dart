@@ -41,6 +41,12 @@ class HomeViewState extends State<HomeView> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             Spacing.spacingV16,
+            Input(
+              errorText: 'Error',
+            ),
+            Spacing.spacingV16,
+            Input(),
+            Spacing.spacingV16,
             Button(
               text: 'Primary',
               onPressed: () {},
