@@ -47,6 +47,12 @@ class HomeViewState extends State<HomeView> {
             Spacing.spacingV16,
             Input(),
             Spacing.spacingV16,
+            Badge(
+              text: 'text',
+              color: Colors.red[400],
+              icon: Icons.edit,
+            ),
+            Spacing.spacingV16,
             Button(
               text: 'Primary',
               onPressed: () {},
