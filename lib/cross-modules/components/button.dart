@@ -31,7 +31,7 @@ class Button extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        onPressed: onPressed!,
+        onPressed: onPressed != null ? onPressed! : null,
         child: Text(
           text,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -52,12 +52,14 @@ class Button extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        onPressed: onPressed!,
+        onPressed: onPressed != null ? onPressed! : null,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             ShaderMask(
-              shaderCallback: (bounds) => Gradients.main.createShader(bounds),
+              shaderCallback: (Rect bounds) => Gradients.main.createShader(
+                bounds,
+              ),
               child: Text(
                 text,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -65,7 +67,7 @@ class Button extends StatelessWidget {
                     ),
               ),
             ),
-            if (icon != null) ...[
+            if (icon != null) ...<Widget>[
               Spacing.spacingH8,
               Icon(
                 icon,

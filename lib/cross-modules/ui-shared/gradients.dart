@@ -4,7 +4,7 @@ import 'package:flutter/material.dart' hide Colors;
 
 class Gradients {
   static const LinearGradient main = LinearGradient(
-    colors: [
+    colors: <Color>[
       Color.fromRGBO(0, 245, 160, 1),
       Color.fromRGBO(0, 217, 245, 1),
     ],
