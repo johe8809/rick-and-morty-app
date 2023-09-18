@@ -10,6 +10,19 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
+  late List<Character> characters = <Character>[];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      characters = await ref
+          .read(homeViewModel.notifier)
+          .handleRetreiveCharacters(context);
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async => false,
@@ -28,18 +41,15 @@ class _HomeViewState extends ConsumerState<HomeView> {
               ),
             ],
           ),
-          body: SingleChildScrollView(
+          body: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Hoola 🖖',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                Spacing.spacingV16,
-                const CharacterCard(),
-              ],
+            child: CharacterList(
+              items: characters,
+              onTap: () {
+                ref
+                    .read(homeViewModel.notifier)
+                    .navigateToDetailCharacterView(context);
+              },
             ),
           ),
         ),

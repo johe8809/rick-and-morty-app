@@ -5,13 +5,13 @@ abstract class AppViewModel<T> extends StateNotifier<T> {
 
   BuildContext? context;
 
-  void showLoading(BuildContext _context) {
+  void showLoading(BuildContext ctx) {
     if (context != null) {
       return;
     }
-    context = _context;
+    context = ctx;
     showDialog<void>(
-      context: _context,
+      context: ctx,
       barrierDismissible: false,
       builder: (BuildContext context) => WillPopScope(
         onWillPop: () async => false,

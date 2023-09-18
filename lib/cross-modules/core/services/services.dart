@@ -1,4 +1,4 @@
-library com.rick_and_morty.services;
+library com.rick_and_morty.core.services;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';

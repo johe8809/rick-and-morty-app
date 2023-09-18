@@ -20,7 +20,7 @@ class LoginViewModel extends AppViewModel<LoginState> {
       await StorageService.instance.setToken(
         user?.credential?.accessToken ?? '',
       );
-      await Navigator.of(context).push(routes[HomeView.routeName]!);
+      context.go(HomeView.routeName);
     } on FirebaseAuthException catch (e) {
       state = state.copyWith(
         error: e.message,
