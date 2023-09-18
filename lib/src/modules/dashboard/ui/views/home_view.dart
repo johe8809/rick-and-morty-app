@@ -1,81 +1,47 @@
 part of com.rick_and_morty.app.dashboard.ui.views;
 
-class HomeView extends StatefulWidget {
-  const HomeView({
-    required this.title,
-    super.key,
-  });
+class HomeView extends ConsumerStatefulWidget {
+  const HomeView({super.key});
 
-  final String title;
+  static const String routeName = '/';
 
   @override
-  State<HomeView> createState() => HomeViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeViewState();
 }
 
-class HomeViewState extends State<HomeView> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _HomeViewState extends ConsumerState<HomeView> {
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: Theme.of(context).textTheme.displaySmall,
+  Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          appBar: AppBar(
+            leading: const SizedBox.shrink(),
+            actions: <Widget>[
+              IconButton(
+                onPressed: () {
+                  ref.read(homeViewModel.notifier).logout(context);
+                },
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.white[0],
+                ),
+              ),
+            ],
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Center(
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'You have pushed the button this many times:',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Spacing.spacingV16,
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Spacing.spacingV16,
-                const Input(
-                  errorText: 'Error',
-                ),
-                Spacing.spacingV16,
-                const Input(),
-                Spacing.spacingV16,
-                Badge(
-                  text: 'text',
-                  color: Colors.red[400],
-                  icon: Icons.edit,
+                  'Hoola 🖖',
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
                 Spacing.spacingV16,
                 const CharacterCard(),
-                Spacing.spacingV16,
-                Button(
-                  text: 'Primary',
-                  onPressed: () {},
-                ),
-                Spacing.spacingV16,
-                Button(
-                  type: ButtonType.secondary,
-                  text: 'Secondary',
-                  onPressed: () {},
-                ),
               ],
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
         ),
       );
 }

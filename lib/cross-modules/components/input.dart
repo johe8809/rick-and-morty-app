@@ -5,12 +5,18 @@ class Input extends StatelessWidget {
     this.label,
     this.placeholder,
     this.errorText,
+    this.obscureText = false,
+    this.controller,
+    this.onChanged,
     super.key,
   });
 
   final String? label;
   final String? placeholder;
   final String? errorText;
+  final bool? obscureText;
+  final TextEditingController? controller;
+  final ValueChanged? onChanged;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -19,6 +25,9 @@ class Input extends StatelessWidget {
           if (label != null) Text(label!),
           Spacing.spacingV4,
           TextField(
+            controller: controller,
+            obscureText: obscureText!,
+            obscuringCharacter: '*',
             decoration: InputDecoration(
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -53,6 +62,7 @@ class Input extends StatelessWidget {
                 ),
               ),
             ),
+            onChanged: onChanged,
           ),
         ],
       );

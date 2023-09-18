@@ -1,70 +1,107 @@
 part of com.rick_and_morty.app.auth.ui.views;
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
 
+  static const String routeName = '/login';
+
   @override
-  State<LoginView> createState() => _LoginViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends ConsumerState<LoginView> {
+  TextEditingController? _emailController;
+  TextEditingController? _passwordController;
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SingleChildScrollView(
-          child: Stack(
-            children: <Widget>[
-              Image.network(
-                'https://pbs.twimg.com/media/Fl0IeEVX0AA2EF3.jpg',
-                height: MediaQuery.of(context).size.height,
-                // fit: BoxFit.cover,
-                alignment: Alignment.topCenter,
-              ),
-              Positioned(
-                bottom: 0,
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.57,
-                  width: MediaQuery.of(context).size.width,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.black[900],
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(24),
-                      ),
+  void initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    LoginState state = ref.watch(loginViewModel);
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Image.network(
+              'https://pbs.twimg.com/media/Fl0IeEVX0AA2EF3.jpg',
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.topCenter,
+            ),
+            Positioned(
+              bottom: 0,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.57,
+                width: MediaQuery.of(context).size.width,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.black[900],
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(24),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 52,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Hoola 🖖',
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 52,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Hoola 🖖',
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                        Spacing.spacingV16,
+                        Input(
+                          controller: _emailController,
+                          label: 'Correo',
+                          placeholder: 'ejemplo@correo.com',
+                        ),
+                        Spacing.spacingV32,
+                        Input(
+                          controller: _passwordController,
+                          label: 'Contraseña',
+                          placeholder: '*********',
+                          obscureText: true,
+                        ),
+                        if (state.error != null) ...<Widget>[
                           Spacing.spacingV16,
-                          const Input(
-                            label: 'Correo',
-                            placeholder: 'ejemplo@correo.com',
-                          ),
-                          Spacing.spacingV32,
-                          const Input(
-                            label: 'Contraseña',
-                            placeholder: '*********',
-                          ),
-                          Spacing.spacingV48,
-                          const Button(
-                            text: 'Ingresar',
+                          Text(
+                            state.error!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: Colors.red[400],
+                                ),
                           ),
                         ],
-                      ),
+                        Spacing.spacingV48,
+                        Button(
+                          text: 'Ingresar',
+                          onPressed: () {
+                            ref.read(loginViewModel.notifier).login(
+                                  context,
+                                  _emailController!.text,
+                                  _passwordController!.text,
+                                );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

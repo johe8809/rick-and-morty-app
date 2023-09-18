@@ -5,12 +5,14 @@ enum ButtonType { primary, secondary }
 class Button extends StatelessWidget {
   const Button({
     required this.text,
+    this.width,
     this.type = ButtonType.primary,
     this.onPressed,
     this.icon,
     super.key,
   });
   final String text;
+  final double? width;
   final ButtonType? type;
   final VoidCallback? onPressed;
   final IconData? icon;
@@ -79,11 +81,16 @@ class Button extends StatelessWidget {
         ),
       );
     }
-    return LayoutBuilder(
-      builder: (_, BoxConstraints constraints) => SizedBox(
-        width: constraints.maxWidth,
-        child: button,
-      ),
-    );
+    return width != null
+        ? SizedBox(
+            width: width,
+            child: button,
+          )
+        : LayoutBuilder(
+            builder: (_, BoxConstraints constraints) => SizedBox(
+              width: constraints.maxWidth,
+              child: button,
+            ),
+          );
   }
 }
