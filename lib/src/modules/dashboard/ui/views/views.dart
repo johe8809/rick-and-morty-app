@@ -4,4 +4,6 @@ import 'package:flutter/material.dart' hide Colors, Badge;
 import 'package:rick_and_morty_app/cross-modules/components/components.dart';
 import 'package:rick_and_morty_app/cross-modules/ui-shared/ui_shared.dart';
 
+import '../widgets/widgets.dart';
+
 part './home_view.dart';

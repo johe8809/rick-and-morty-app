@@ -7,11 +7,13 @@ class Button extends StatelessWidget {
     required this.text,
     this.type = ButtonType.primary,
     this.onPressed,
+    this.icon,
     super.key,
   });
   final String text;
   final ButtonType? type;
   final VoidCallback? onPressed;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +53,27 @@ class Button extends StatelessWidget {
           ),
         ),
         onPressed: onPressed!,
-        child: ShaderMask(
-          shaderCallback: (bounds) => Gradients.main.createShader(bounds),
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ShaderMask(
+              shaderCallback: (bounds) => Gradients.main.createShader(bounds),
+              child: Text(
+                text,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+            ),
+            if (icon != null) ...[
+              Spacing.spacingH8,
+              Icon(
+                icon,
+                color: Gradients.main.colors.first,
+                size: 16,
+              ),
+            ],
+          ],
         ),
       );
     }
