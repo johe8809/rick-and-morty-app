@@ -5,12 +5,14 @@ enum ButtonType { primary, secondary }
 class Button extends StatelessWidget {
   const Button({
     required this.text,
+    this.width,
     this.type = ButtonType.primary,
     this.onPressed,
     this.icon,
     super.key,
   });
   final String text;
+  final double? width;
   final ButtonType? type;
   final VoidCallback? onPressed;
   final IconData? icon;
@@ -31,7 +33,7 @@ class Button extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        onPressed: onPressed!,
+        onPressed: onPressed != null ? onPressed! : null,
         child: Text(
           text,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -52,12 +54,14 @@ class Button extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        onPressed: onPressed!,
+        onPressed: onPressed != null ? onPressed! : null,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             ShaderMask(
-              shaderCallback: (bounds) => Gradients.main.createShader(bounds),
+              shaderCallback: (Rect bounds) => Gradients.main.createShader(
+                bounds,
+              ),
               child: Text(
                 text,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -65,7 +69,7 @@ class Button extends StatelessWidget {
                     ),
               ),
             ),
-            if (icon != null) ...[
+            if (icon != null) ...<Widget>[
               Spacing.spacingH8,
               Icon(
                 icon,
@@ -77,11 +81,16 @@ class Button extends StatelessWidget {
         ),
       );
     }
-    return LayoutBuilder(
-      builder: (_, BoxConstraints constraints) => SizedBox(
-        width: constraints.maxWidth,
-        child: button,
-      ),
-    );
+    return width != null
+        ? SizedBox(
+            width: width,
+            child: button,
+          )
+        : LayoutBuilder(
+            builder: (_, BoxConstraints constraints) => SizedBox(
+              width: constraints.maxWidth,
+              child: button,
+            ),
+          );
   }
 }

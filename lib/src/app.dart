@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart' hide Colors;
-import 'package:rick_and_morty_app/cross-modules/ui-shared/ui_shared.dart';
 
-import 'modules/dashboard/ui/views/views.dart';
+import './modules/auth/ui/views/views.dart';
+import './modules/dashboard/ui/views/views.dart';
+import '../cross-modules/core/services/services.dart';
+import '../cross-modules/ui-shared/ui_shared.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool isAuthenticated = StorageService.instance.getToken != null;
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Rick and Morty',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black[900],
         appBarTheme: AppBarTheme(
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomeView(title: 'Flutter Demo Home Page'),
+      home: isAuthenticated ? const HomeView() : const LoginView(),
     );
   }
 }
