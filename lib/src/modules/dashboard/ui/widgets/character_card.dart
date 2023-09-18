@@ -1,7 +1,14 @@
 part of com.rick_and_morty.app.dashboard.ui.widgets;
 
 class CharacterCard extends StatelessWidget {
-  const CharacterCard({super.key});
+  const CharacterCard({
+    required this.character,
+    this.onTap,
+    super.key,
+  });
+
+  final Character character;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -20,36 +27,40 @@ class CharacterCard extends StatelessWidget {
             ),
             child: Column(
               children: <Widget>[
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 100,
-                  child: Text('YH'),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.network(character.image!),
+                  ),
                 ),
                 Spacing.spacingV16,
                 Text(
-                  'Benet Sanchez',
+                  character.name!,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
                 Spacing.spacingV4,
                 Text(
-                  'HUMAN',
+                  character.species!.toUpperCase(),
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         color: Colors.gray[0],
                       ),
                 ),
                 Spacing.spacingV16,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
                   children: <Widget>[
                     Badge(
-                      text: 'text',
-                      color: Colors.red[400],
-                      icon: Icons.edit,
+                      text: character.location!.name!,
+                      color: Colors.pink[400],
+                      icon: Icons.room,
                     ),
                     Spacing.spacingH12,
                     Badge(
-                      text: 'text',
-                      color: Colors.red[400],
-                      icon: Icons.edit,
+                      text: character.status!.value!,
+                      color: character.status!.isDead
+                          ? Colors.red[400]
+                          : Colors.green[500],
+                      icon: Icons.heart_broken,
                     ),
                   ],
                 ),
@@ -57,7 +68,11 @@ class CharacterCard extends StatelessWidget {
                 Button(
                   type: ButtonType.secondary,
                   text: 'Ver perfil',
-                  onPressed: () {},
+                  onPressed: () {
+                    if (onTap != null) {
+                      onTap!();
+                    }
+                  },
                   icon: Icons.arrow_forward_ios,
                 ),
               ],

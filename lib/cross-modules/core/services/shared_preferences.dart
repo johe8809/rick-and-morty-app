@@ -1,4 +1,4 @@
-part of com.rick_and_morty.services;
+part of com.rick_and_morty.core.services;
 
 class StorageService {
   StorageService._();
