@@ -5,11 +5,15 @@ class Badge extends StatelessWidget {
     required this.text,
     this.icon,
     this.color,
+    this.padding,
+    this.labelStyle,
     super.key,
   });
   final String text;
   final IconData? icon;
   final Color? color;
+  final EdgeInsetsGeometry? padding;
+  final TextStyle? labelStyle;
 
   @override
   Widget build(BuildContext context) => Chip(
@@ -20,11 +24,16 @@ class Badge extends StatelessWidget {
               )
             : null,
         backgroundColor: Colors.black[900],
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-        label: Text(text),
-        labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: color ?? Colors.white[0],
+        padding: padding ??
+            const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 4,
             ),
+        label: Text(text),
+        labelStyle: labelStyle ??
+            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: color ?? Colors.white[0],
+                ),
         side: BorderSide(
           color: color ?? Colors.white[0]!,
         ),
