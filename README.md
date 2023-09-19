@@ -19,7 +19,7 @@ La aplicación consta de tres pantallas:
 
 ## Uso
 
-Clona este repositorio y ejecuta:
+Clona este repositorio y ejecutar el comando:
 
 ```bash
 flutter run
@@ -27,7 +27,7 @@ flutter run
 
 ## Pruebas de Integración
 
-Ejecutarla el comando:
+Ejecutar el comando:
 
 ```bash
 flutter test integration_test/test.dart
