@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide Colors, Badge;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../cross-modules/components/components.dart';
 import '../../../../../cross-modules/typing/typing.dart';
 import '../../../../../cross-modules/ui-shared/ui_shared.dart';
 

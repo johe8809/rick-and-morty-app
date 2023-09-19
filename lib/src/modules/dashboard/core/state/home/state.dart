@@ -2,10 +2,10 @@ part of com.rick_and_morty.dashboard.core.state;
 
 class HomeState {
   HomeState({
-    this.error,
+    this.characters,
   });
 
-  String? error;
+  List<Character>? characters;
 
   @override
   bool operator ==(Object other) =>
@@ -15,13 +15,13 @@ class HomeState {
           toString() == other.toString();
 
   @override
-  int get hashCode => error.hashCode;
+  int get hashCode => characters.hashCode;
 
   HomeState copyWith({
-    String? error,
+    List<Character>? characters,
   }) =>
       HomeState(
-        error: error,
+        characters: characters ?? this.characters,
       );
 
   @override

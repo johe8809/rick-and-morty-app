@@ -14,18 +14,24 @@ class HomeViewModel extends AppViewModel<HomeState> {
     context.go(LoginView.routeName);
   }
 
-  void navigateToDetailCharacterView(BuildContext context) {
-    context.go(DetailCharacterView.routeName);
+  void navigateToDetailCharacterView(
+    BuildContext context,
+    Character character,
+  ) {
+    context.go('/${DetailCharacterView.routeName}', extra: character);
   }
 
   /// * Future functions
 
-  Future<List<Character>> handleRetreiveCharacters(BuildContext context) async {
+  Future<void> handleRetreiveCharacters(BuildContext context) async {
     try {
       showLoading(context);
-      return await DashboardService.instance.retreiveCharacters();
-    } on Exception catch (e) {
-      return Future<List<Character>>.error(e);
+
+      List<Character>? characters =
+          await DashboardService.instance.retreiveCharacters();
+      state = state.copyWith(characters: characters);
+    } on Exception catch (_) {
+      rethrow;
     } finally {
       closeLoading();
     }

@@ -8,7 +8,7 @@ class CharacterCard extends StatelessWidget {
   });
 
   final Character character;
-  final VoidCallback? onTap;
+  final void Function(Character character)? onTap;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -70,7 +70,7 @@ class CharacterCard extends StatelessWidget {
                   text: 'Ver perfil',
                   onPressed: () {
                     if (onTap != null) {
-                      onTap!();
+                      onTap!(character);
                     }
                   },
                   icon: Icons.arrow_forward_ios,

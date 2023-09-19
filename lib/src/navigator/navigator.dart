@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../cross-modules/core/services/services.dart';
+import '../../cross-modules/typing/typing.dart';
 import '../modules/auth/ui/views/views.dart';
 import '../modules/dashboard/ui/views/views.dart';
 

@@ -10,50 +10,50 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
-  late List<Character> characters = <Character>[];
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      characters = await ref
-          .read(homeViewModel.notifier)
-          .handleRetreiveCharacters(context);
+      await ref.read(homeViewModel.notifier).handleRetreiveCharacters(context);
       setState(() {});
     });
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async => false,
-        child: Scaffold(
-          key: const Key('home_view_key'),
-          appBar: AppBar(
-            leading: const SizedBox.shrink(),
-            actions: <Widget>[
-              IconButton(
-                onPressed: () {
-                  ref.read(homeViewModel.notifier).logout(context);
-                },
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.white[0],
-                ),
-              ),
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: CharacterList(
-              key: const Key('character_list_key'),
-              items: characters,
-              onTap: () {
-                ref
-                    .read(homeViewModel.notifier)
-                    .navigateToDetailCharacterView(context);
+  Widget build(BuildContext context) {
+    HomeState state = ref.watch(homeViewModel);
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        key: const Key('home_view_key'),
+        appBar: AppBar(
+          leading: const SizedBox.shrink(),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                ref.read(homeViewModel.notifier).logout(context);
               },
+              icon: Icon(
+                Icons.logout,
+                color: Colors.white[0],
+              ),
             ),
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: CharacterList(
+            key: const Key('character_list_key'),
+            items: state.characters ?? <Character>[],
+            onTap: (Character character) {
+              ref.read(homeViewModel.notifier).navigateToDetailCharacterView(
+                    context,
+                    character,
+                  );
+            },
           ),
         ),
-      );
+      ),
+    );
+  }
 }

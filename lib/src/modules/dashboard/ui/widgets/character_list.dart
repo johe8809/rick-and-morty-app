@@ -4,21 +4,28 @@ class CharacterList extends StatelessWidget {
   const CharacterList({
     required this.items,
     this.onTap,
+    this.scrollDirection,
     super.key,
   });
 
   final List<Character> items;
-  final VoidCallback? onTap;
+  final void Function(Character character)? onTap;
+  final Axis? scrollDirection;
 
   @override
   Widget build(BuildContext context) => ListView.separated(
         shrinkWrap: true,
         itemCount: items.length,
+        scrollDirection: scrollDirection ?? Axis.vertical,
         itemBuilder: (BuildContext context, int index) => CharacterCard(
           character: items[index],
-          onTap: onTap,
+          onTap: (Character character) {
+            onTap!(character);
+          },
         ),
         separatorBuilder: (BuildContext context, int index) =>
-            Spacing.spacingV16,
+            scrollDirection == Axis.horizontal
+                ? Spacing.spacingH16
+                : Spacing.spacingV16,
       );
 }
