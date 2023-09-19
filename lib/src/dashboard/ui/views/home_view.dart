@@ -22,6 +22,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     HomeState state = ref.watch(homeViewModel);
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -40,17 +41,25 @@ class _HomeViewState extends ConsumerState<HomeView> {
             ),
           ],
         ),
-        body: Padding(
+        body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
-          child: CharacterList(
-            key: const Key('character_list_key'),
-            items: state.characters ?? <Character>[],
-            onTap: (Character character) {
-              ref.read(homeViewModel.notifier).navigateToDetailCharacterView(
-                    context,
-                    character,
-                  );
-            },
+          child: Column(
+            children: <Widget>[
+              SearchCharacter(items: state.characters ?? <Character>[]),
+              Spacing.spacingV16,
+              CharacterList(
+                key: const Key('character_list_key'),
+                items: state.characters ?? <Character>[],
+                onTap: (Character character) {
+                  ref
+                      .read(homeViewModel.notifier)
+                      .navigateToDetailCharacterView(
+                        context,
+                        character,
+                      );
+                },
+              ),
+            ],
           ),
         ),
       ),
