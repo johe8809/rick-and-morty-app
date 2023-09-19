@@ -25,6 +25,12 @@ Clona este repositorio y ejecutar el comando:
 flutter run
 ```
 
+## Usuario de prueba
+```
+email: test@yopmail.com
+password: test123
+```
+
 ## Pruebas de Integración
 
 Ejecutar el comando:
