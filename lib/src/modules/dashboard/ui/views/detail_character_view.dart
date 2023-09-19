@@ -13,6 +13,7 @@ class DetailCharacterView extends ConsumerStatefulWidget {
 class _DetailCharacterViewState extends ConsumerState<DetailCharacterView> {
   @override
   Widget build(BuildContext context) => Scaffold(
+        key: const Key('detail_character_view_key'),
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {},

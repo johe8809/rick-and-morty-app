@@ -27,6 +27,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
+          key: const Key('home_view_key'),
           appBar: AppBar(
             leading: const SizedBox.shrink(),
             actions: <Widget>[
@@ -44,6 +45,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
           body: Padding(
             padding: const EdgeInsets.all(16),
             child: CharacterList(
+              key: const Key('character_list_key'),
               items: characters,
               onTap: () {
                 ref

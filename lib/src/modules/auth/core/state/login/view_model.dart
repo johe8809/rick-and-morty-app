@@ -13,9 +13,6 @@ class LoginViewModel extends AppViewModel<LoginState> {
     state = state.copyWith(error: null);
     try {
       showLoading(context);
-      await Future<void>.delayed(
-        const Duration(seconds: 5),
-      );
       UserCredential? user = await AuthService.instance.login(email, password);
       await StorageService.instance.setToken(
         user?.credential?.accessToken ?? '',
