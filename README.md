@@ -14,8 +14,8 @@ La aplicación consta de tres pantallas:
 
 ## Capturas de Pantalla
 
-![Screenshot 1](screenshots/screenshot1.png)
-![Screenshot 2](screenshots/screenshot2.png)
+<img src="screenshots/screenshot1.png" alt="Screenshot 1" width="300" height="600">
+<img src="screenshots/screenshot2.png" alt="Screenshot 1" width="300" height="600">
 
 ## Uso
 
