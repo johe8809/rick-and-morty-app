@@ -1,16 +1,34 @@
-# rick_and_morty_app
+# Rick and Morty App
 
-A new Flutter project.
+## Descripción
 
-## Getting Started
+Esta es una aplicación de Flutter que muestra una lista de personajes de la serie "Rick and Morty". Utiliza la [API pública de Rick and Morty](https://rickandmortyapi.com/) para obtener la información de los personajes.
 
-This project is a starting point for a Flutter application.
+La aplicación consta de tres pantallas:
 
-A few resources to get you started if this is your first Flutter project:
+1. **Pantalla de Inicio de Sesión (Login)**: Esta pantalla valida las credenciales utilizando Firebase Authentication.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. **Lista de Personajes**: Una vez que el usuario ha ingresado con éxito, se muestra una lista de personajes obtenidos de la API. Cada elemento de la lista muestra información básica sobre un personaje.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. **Detalles del Personaje**: Al hacer clic en un personaje de la lista, se muestra una pantalla con detalles adicionales sobre ese personaje.
+
+## Capturas de Pantalla
+
+![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 2](screenshots/screenshot2.png)
+
+## Uso
+
+Clona este repositorio y ejecuta:
+
+```bash
+flutter run
+```
+
+## Pruebas de Integración
+
+Ejecutarla el comando:
+
+```bash
+flutter test integration_test/test.dart
+```
