@@ -25,6 +25,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
     LoginState state = ref.watch(loginViewModel);
 
     return Scaffold(
+      key: const Key('login_view_key'),
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
@@ -59,12 +60,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         ),
                         Spacing.spacingV16,
                         Input(
+                          key: const Key('email_field_key'),
                           controller: _emailController,
                           label: 'Correo',
                           placeholder: 'ejemplo@correo.com',
                         ),
                         Spacing.spacingV32,
                         Input(
+                          key: const Key('password_field_key'),
                           controller: _passwordController,
                           label: 'Contraseña',
                           placeholder: '*********',
@@ -73,6 +76,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         if (state.error != null) ...<Widget>[
                           Spacing.spacingV16,
                           Text(
+                            key: const Key('login_error_text_key'),
                             state.error!,
                             style: Theme.of(context)
                                 .textTheme
@@ -84,6 +88,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         ],
                         Spacing.spacingV48,
                         Button(
+                          key: const Key('login_button_key'),
                           text: 'Ingresar',
                           onPressed: () {
                             ref.read(loginViewModel.notifier).login(
