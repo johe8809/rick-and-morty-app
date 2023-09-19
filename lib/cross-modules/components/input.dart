@@ -6,6 +6,7 @@ class Input extends StatelessWidget {
     this.placeholder,
     this.errorText,
     this.obscureText = false,
+    this.keyboardType,
     this.controller,
     this.onChanged,
     super.key,
@@ -15,8 +16,9 @@ class Input extends StatelessWidget {
   final String? placeholder;
   final String? errorText;
   final bool? obscureText;
+  final TextInputType? keyboardType;
   final TextEditingController? controller;
-  final ValueChanged? onChanged;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -28,6 +30,7 @@ class Input extends StatelessWidget {
             controller: controller,
             obscureText: obscureText!,
             obscuringCharacter: '*',
+            keyboardType: keyboardType,
             decoration: InputDecoration(
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),

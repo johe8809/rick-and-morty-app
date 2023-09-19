@@ -48,6 +48,7 @@ class _DetailCharacterViewState extends ConsumerState<DetailCharacterView> {
           left: 16,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

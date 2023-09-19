@@ -18,9 +18,9 @@ class LoginViewModel extends AppViewModel<LoginState> {
         user?.credential?.accessToken ?? '',
       );
       context.go(HomeView.routeName);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (_) {
       state = state.copyWith(
-        error: e.message,
+        error: 'Ha ocurrido un error al iniciar sesión',
       );
     } finally {
       closeLoading();

@@ -8,8 +8,8 @@ class AuthService {
   Future<UserCredential?> login(String email, String password) async {
     try {
       return await FirebaseAuthService.instance.login(email, password);
-    } on Exception catch (e) {
-      return Future<UserCredential>.error(e);
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 }

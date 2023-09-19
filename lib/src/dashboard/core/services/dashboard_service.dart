@@ -20,8 +20,8 @@ class DashboardService {
             ),
           )
           .toList();
-    } on Exception catch (e) {
-      return Future<List<Character>>.error(e);
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 }

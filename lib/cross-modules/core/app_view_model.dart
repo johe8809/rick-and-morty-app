@@ -1,4 +1,4 @@
-part of com.rick_and_morty.typing;
+part of com.rick_and_morty.core;
 
 abstract class AppViewModel<T> extends StateNotifier<T> {
   AppViewModel(T state) : super(state);

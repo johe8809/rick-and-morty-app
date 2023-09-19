@@ -12,6 +12,8 @@ class LoginView extends ConsumerStatefulWidget {
 class _LoginViewState extends ConsumerState<LoginView> {
   TextEditingController? _emailController;
   TextEditingController? _passwordController;
+  String? _emailError;
+  String? _passwordError;
 
   @override
   void initState() {
@@ -64,6 +66,12 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           controller: _emailController,
                           label: 'Correo',
                           placeholder: 'ejemplo@correo.com',
+                          keyboardType: TextInputType.emailAddress,
+                          errorText: _emailError,
+                          onChanged: (String value) {
+                            _emailError = validateEmail(value);
+                            setState(() {});
+                          },
                         ),
                         Spacing.spacingV32,
                         Input(
@@ -72,6 +80,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           label: 'Contraseña',
                           placeholder: '*********',
                           obscureText: true,
+                          errorText: _passwordError,
+                          onChanged: (String value) {
+                            _passwordError = checkRequiredField(value);
+                            setState(() {});
+                          },
                         ),
                         if (state.error != null) ...<Widget>[
                           Spacing.spacingV16,
@@ -91,6 +104,15 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           key: const Key('login_button_key'),
                           text: 'Ingresar',
                           onPressed: () {
+                            _emailError = validateEmail(_emailController!.text);
+                            _passwordError =
+                                checkRequiredField(_passwordController!.text);
+
+                            if (_emailError != null || _passwordError != null) {
+                              setState(() {});
+                              return;
+                            }
+
                             ref.read(loginViewModel.notifier).login(
                                   context,
                                   _emailController!.text,
