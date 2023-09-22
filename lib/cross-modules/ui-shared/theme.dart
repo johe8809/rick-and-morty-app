@@ -9,7 +9,6 @@ class UITheme {
   static ThemeData main = ThemeData(
     scaffoldBackgroundColor: Colors.black[900],
     appBarTheme: AppBarTheme(
-      // TODO(Yonnathan): enhance this theme
       backgroundColor: Colors.black[600],
       elevation: 0,
     ),

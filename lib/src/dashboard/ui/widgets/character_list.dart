@@ -15,6 +15,7 @@ class CharacterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.separated(
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: items.length,
         scrollDirection: scrollDirection ?? Axis.vertical,
         itemBuilder: (BuildContext context, int index) => CharacterCard(

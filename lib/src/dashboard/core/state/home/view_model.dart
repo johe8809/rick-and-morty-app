@@ -7,6 +7,10 @@ class HomeViewModel extends AppViewModel<HomeState> {
 
   /// * Void functions
 
+  void setCharacterList(List<Character> characters) {
+    state = state.copyWith(characters: characters);
+  }
+
   void logout(BuildContext context) {
     FirebaseAuthService.instance.logout();
     StorageService.instance.delete();

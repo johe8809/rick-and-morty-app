@@ -13,4 +13,3 @@ import '../widgets/widgets.dart';
 
 part './home_view.dart';
 part './detail_character_view.dart';
-part '../widgets/search_character.dart';

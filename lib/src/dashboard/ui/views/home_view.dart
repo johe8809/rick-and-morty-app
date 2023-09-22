@@ -10,18 +10,13 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(homeViewModel.notifier).handleRetreiveCharacters(context);
-      setState(() {});
-    });
-    super.initState();
-  }
+  Character? characterSelected;
 
   @override
   Widget build(BuildContext context) {
-    HomeState state = ref.watch(homeViewModel);
+    AsyncValue<List<Character>> characters = ref.watch(
+      retreiveCharactersProvider,
+    );
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -42,24 +37,53 @@ class _HomeViewState extends ConsumerState<HomeView> {
           ],
         ),
         body: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.all(16),
-          child: Column(
-            children: <Widget>[
-              SearchCharacter(items: state.characters ?? <Character>[]),
-              Spacing.spacingV16,
-              CharacterList(
-                key: const Key('character_list_key'),
-                items: state.characters ?? <Character>[],
-                onTap: (Character character) {
-                  ref
-                      .read(homeViewModel.notifier)
-                      .navigateToDetailCharacterView(
-                        context,
-                        character,
-                      );
-                },
+          child: characters.when(
+            data: (List<Character> data) => Column(
+              children: <Widget>[
+                SearchCharacter(
+                  onSubmitted: (Character? character) {
+                    characterSelected = character;
+                    setState(() {});
+                  },
+                ),
+                Spacing.spacingV16,
+                if (characterSelected != null)
+                  CharacterCard(
+                    character: characterSelected!,
+                    onTap: (Character character) {
+                      ref
+                          .read(homeViewModel.notifier)
+                          .navigateToDetailCharacterView(
+                            context,
+                            character,
+                          );
+                    },
+                  )
+                else
+                  CharacterList(
+                    key: const Key('character_list_key'),
+                    items: data,
+                    onTap: (Character character) {
+                      ref
+                          .read(homeViewModel.notifier)
+                          .navigateToDetailCharacterView(
+                            context,
+                            character,
+                          );
+                    },
+                  ),
+              ],
+            ),
+            loading: () => Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white[0]!),
               ),
-            ],
+            ),
+            error: (_, __) => const Center(
+              child: Text('Ocurrió un error al cargar los datos'),
+            ),
           ),
         ),
       ),

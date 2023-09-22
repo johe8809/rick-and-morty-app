@@ -10,6 +10,7 @@ import '../../../auth/ui/views/views.dart';
 import '../../ui/views/views.dart';
 import '../services/services.dart';
 
-part './home/view_model.dart';
+part './home/future_provider.dart';
 part './home/provider.dart';
 part './home/state.dart';
+part './home/view_model.dart';
